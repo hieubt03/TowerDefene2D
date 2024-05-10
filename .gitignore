@@ -1,0 +1,27 @@
+.vscode/
+
+Assets/Prefabs/
+Assets/Materials/
+Assets/Scenes/
+Assets/UI Toolkit/
+Assets/TextMesh Pro/
+
+*.exe
+*.apk
+*.dll
+*.meta 
+*.csproj
+*.sln
+*.pdb
+*.unitypackage
+*.suo
+*.user 
+*.userprefs
+*.asset
+
+/Builds/
+/Temp/
+/Library/
+
+/Logs/
+/UserSettings/
