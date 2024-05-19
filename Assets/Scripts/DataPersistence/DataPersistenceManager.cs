@@ -9,8 +9,8 @@ public class DataPersistenceManager : MonoBehaviour
     private bool initializeDataIfNull = true;
     public string fileName;
     private bool useEncryption = false;
-    private GameData gameData;
-    public ProjectileData projectileData;
+    public GameData gameData;
+    public LevelData levelData;
     private List<IDataPersistence> dataPersistenceObjects;
     private FileDataHandler fileDataHandler;
     private string selecedtLevelId = "";
@@ -44,43 +44,42 @@ public class DataPersistenceManager : MonoBehaviour
         selecedtLevelId = newLevelId;
         LoadGame();
     }
+    public void NewLevelData() {
+        levelData = new LevelData();
+    }
+
     public void NewGameData() {
         gameData = new GameData();
     }
 
-    public void NewProjectileData() {
-        projectileData = new ProjectileData();
-    }
-
     public void LoadGame() {
-        //Load star of levelSelectId
-        gameData = fileDataHandler.LoadLevelData(selecedtLevelId);
-        if (gameData == null && initializeDataIfNull) {
-            NewGameData();
+        //Load level data
+        levelData = fileDataHandler.LoadLevelData(selecedtLevelId);
+        if (levelData == null && initializeDataIfNull) {
+            NewLevelData();
         }
-        if (gameData == null) {
+        if (levelData == null) {
             Debug.Log("No data was found.");
             return;
         }
         foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects) {
-            dataPersistenceObj.LoadData(gameData);
+            dataPersistenceObj.LoadData(levelData);
         }
-        //load projectile data
-        projectileData = fileDataHandler.LoadProjectileData();
-        if (projectileData == null) {
-            NewProjectileData();
+        //Load game data
+        gameData = fileDataHandler.LoadGameData();
+        if (gameData == null) {
+            NewGameData();
         }
     }
     private void SaveGame() {
-        if (gameData == null) {
+        if (levelData == null) {
             return;
         }
         foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects) {
-            dataPersistenceObj.SaveData(gameData);
+            dataPersistenceObj.SaveData(levelData);
         }
-        fileDataHandler.SaveLevelData(gameData, selecedtLevelId);
-        // save projectile data
-        fileDataHandler.SaveProjectileData(projectileData);
+        fileDataHandler.SaveLevelData(levelData, selecedtLevelId);
+        fileDataHandler.SaveGameData(gameData);
     }
     private void TriggerSaveGame(GameObject gameObj, string param) {
         SaveGame();
@@ -94,7 +93,7 @@ public class DataPersistenceManager : MonoBehaviour
 
         return new List<IDataPersistence>(dataPersistenceObjects);
     }
-    public Dictionary<string, GameData> GetAllLevelsGameData() {
+    public Dictionary<string, LevelData> GetAllLevelsGameData() {
         return fileDataHandler.LoadAllLevels();
     }
 }

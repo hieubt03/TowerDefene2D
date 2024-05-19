@@ -17,11 +17,41 @@ public class FileDataHandler
         this.dataFileName = dataFileName;
         this.useEncryption = useEncryption;
     }
-    public GameData LoadLevelData(string levelId, bool allowRestoreFromBackup = true) {
+    public LevelData LoadLevelData(string levelId, bool allowRestoreFromBackup = true) {
         if (levelId == null) {
             return null;
         }
         string fullPath = Path.Combine(dataDirPath, levelId, dataFileName);
+        LevelData loadedData = null;
+        if (File.Exists(fullPath)) {
+            try {
+                string dataToLoad = "";
+                using (FileStream stream = new FileStream(fullPath, FileMode.Open)) {
+                    using (StreamReader reader = new StreamReader(stream)) {
+                        dataToLoad = reader.ReadToEnd();
+                    }
+                }
+                if (useEncryption) {
+                    dataToLoad = EncryptDecrypt(dataToLoad);
+                }
+                loadedData = JsonUtility.FromJson<LevelData>(dataToLoad);
+            } catch (Exception e) {
+                if (allowRestoreFromBackup) {
+                    Debug.LogWarning("Failed to load data file. Attempting to roll back.\n" + e);
+                    bool rollbackSuccess = AttemptRollback(fullPath);
+                    if (rollbackSuccess) {
+                        loadedData = LoadLevelData(levelId, false);
+                    }
+                } else {
+                    Debug.Log("Error when trying  to load file");
+                }
+            }
+        }
+        return loadedData;
+    }
+    
+    public GameData LoadGameData(bool allowRestoreFromBackup = true) {
+        string fullPath = Path.Combine(dataDirPath, dataFileName);
         GameData loadedData = null;
         if (File.Exists(fullPath)) {
             try {
@@ -40,7 +70,7 @@ public class FileDataHandler
                     Debug.LogWarning("Failed to load data file. Attempting to roll back.\n" + e);
                     bool rollbackSuccess = AttemptRollback(fullPath);
                     if (rollbackSuccess) {
-                        loadedData = LoadLevelData(levelId, false);
+                        loadedData = LoadGameData(false);
                     }
                 } else {
                     Debug.Log("Error when trying  to load file");
@@ -49,37 +79,7 @@ public class FileDataHandler
         }
         return loadedData;
     }
-    
-    public ProjectileData LoadProjectileData(bool allowRestoreFromBackup = true) {
-        string fullPath = Path.Combine(dataDirPath, dataFileName);
-        ProjectileData loadedData = null;
-        if (File.Exists(fullPath)) {
-            try {
-                string dataToLoad = "";
-                using (FileStream stream = new FileStream(fullPath, FileMode.Open)) {
-                    using (StreamReader reader = new StreamReader(stream)) {
-                        dataToLoad = reader.ReadToEnd();
-                    }
-                }
-                if (useEncryption) {
-                    dataToLoad = EncryptDecrypt(dataToLoad);
-                }
-                loadedData = JsonUtility.FromJson<ProjectileData>(dataToLoad);
-            } catch (Exception e) {
-                if (allowRestoreFromBackup) {
-                    Debug.LogWarning("Failed to load data file. Attempting to roll back.\n" + e);
-                    bool rollbackSuccess = AttemptRollback(fullPath);
-                    if (rollbackSuccess) {
-                        loadedData = LoadProjectileData(false);
-                    }
-                } else {
-                    Debug.Log("Error when trying  to load file");
-                }
-            }
-        }
-        return loadedData;
-    }
-    public void SaveLevelData(GameData data, string levelId) {
+    public void SaveLevelData(LevelData data, string levelId) {
         if (levelId == null) {
             return;
         }
@@ -96,7 +96,7 @@ public class FileDataHandler
                     writer.Write(dataToStore);
                 }
             }
-            GameData verifiedGameData = LoadLevelData(levelId);
+            LevelData verifiedGameData = LoadLevelData(levelId);
             if (verifiedGameData != null) {
                 File.Copy(fullPath, backupFilePath, true);
             } else {
@@ -107,7 +107,7 @@ public class FileDataHandler
         }
     }
 
-     public void SaveProjectileData(ProjectileData data) {
+     public void SaveGameData(GameData data) {
         string fullPath = Path.Combine(dataDirPath, dataFileName);
         string backupFilePath = fullPath + backupExtension;
         try {
@@ -121,7 +121,7 @@ public class FileDataHandler
                     writer.Write(dataToStore);
                 }
             }
-            ProjectileData verifiedProjectileData = LoadProjectileData();
+            GameData verifiedProjectileData = LoadGameData();
             if (verifiedProjectileData != null) {
                 File.Copy(fullPath, backupFilePath, true);
             } else {
@@ -132,8 +132,8 @@ public class FileDataHandler
         }
     }
 
-    public Dictionary<string, GameData> LoadAllLevels() {
-        Dictionary<string, GameData> levelDictionary = new Dictionary<string, GameData>();
+    public Dictionary<string, LevelData> LoadAllLevels() {
+        Dictionary<string, LevelData> levelDictionary = new Dictionary<string, LevelData>();
         IEnumerable<DirectoryInfo> dirInfos = new DirectoryInfo(dataDirPath).EnumerateDirectories();
         foreach (DirectoryInfo dirInfo in dirInfos) {
             string levelId = dirInfo.Name;
@@ -142,7 +142,7 @@ public class FileDataHandler
                 Debug.LogWarning("Skipping directory : "+ levelId);
                 continue;
             }
-            GameData levelData = LoadLevelData(levelId);
+            LevelData levelData = LoadLevelData(levelId);
             if (levelData != null) {
                 levelDictionary.Add(levelId, levelData);
             } else {
@@ -156,7 +156,6 @@ public class FileDataHandler
         for (int i = 0; i < data.Length; i++) {
             modifiedData += (char) (data[i] ^ encryptionCodeWord[i % encryptionCodeWord.Length]);
         }
-        //Debug.Log(modifiedData);
         return modifiedData;
     }
     private bool AttemptRollback(string fullPath) {

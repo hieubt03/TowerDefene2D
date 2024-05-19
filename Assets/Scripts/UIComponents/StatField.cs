@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -47,93 +48,92 @@ public class StatField : MonoBehaviour
                 break;
             }
     }
-    // onclick cua field
     public void OnUpgradeButtonClicked() {
-        ProjectileData projectileData = DataPersistenceManager.instance.projectileData;
-        if (projectileData.totalPoint >= 1) {
+        GameData gameData = DataPersistenceManager.instance.gameData;
+        if (gameData.totalPoint >= 1) {
             switch (statFieldName) {
                 case "arrowDamageScale" : 
-                    if (projectileData.arrowDamageScale < 10) {
-                        projectileData.SpendPoint();
-                        projectileData.arrowDamageScale += 1;
-                        SetStatFieldSprite(projectileData.arrowDamageScale);
+                    if (gameData.arrowDamageScale < 10) {
+                        gameData.SpendPoint();
+                        gameData.arrowDamageScale += 1;
+                        SetStatFieldSprite(gameData.arrowDamageScale);
                     }
                     break;
                 case "arrowFireRate" : 
-                    if (projectileData.arrowSpeed < 10) {
-                        projectileData.SpendPoint();
-                        projectileData.arrowSpeed += 1;
-                        SetStatFieldSprite(projectileData.arrowSpeed);
+                    if (gameData.arrowSpeed < 10) {
+                        gameData.SpendPoint();
+                        gameData.arrowSpeed += 1;
+                        SetStatFieldSprite(gameData.arrowSpeed);
                     }
                     break;
                 case "arrowAttackSpeed" : 
-                    if (projectileData.arrowAttackSpeed < 10) {
-                        projectileData.SpendPoint();
-                        projectileData.arrowAttackSpeed += 1;
-                        SetStatFieldSprite(projectileData.arrowAttackSpeed);
+                    if (gameData.arrowAttackSpeed < 10) {
+                        gameData.SpendPoint();
+                        gameData.arrowAttackSpeed += 1;
+                        SetStatFieldSprite(gameData.arrowAttackSpeed);
                     };
                     break;
                 case "bulletDamageScale" : 
-                    if (projectileData.bulletDamageScale < 10) {
-                        projectileData.SpendPoint();
-                        projectileData.bulletDamageScale += 1;
-                        SetStatFieldSprite(projectileData.bulletDamageScale);
+                    if (gameData.bulletDamageScale < 10) {
+                        gameData.SpendPoint();
+                        gameData.bulletDamageScale += 1;
+                        SetStatFieldSprite(gameData.bulletDamageScale);
                     }
                     break;
                 case "bulletFireRate" : 
-                    if (projectileData.bulletSpeed < 10) {
-                        projectileData.SpendPoint();
-                        projectileData.bulletSpeed += 1;
-                        SetStatFieldSprite(projectileData.bulletSpeed);
+                    if (gameData.bulletSpeed < 10) {
+                        gameData.SpendPoint();
+                        gameData.bulletSpeed += 1;
+                        SetStatFieldSprite(gameData.bulletSpeed);
                     }
                     break;
                 case "bulletAttackSpeed" : 
-                    if (projectileData.bulletAttackSpeed < 10) {
-                        projectileData.SpendPoint();
-                        projectileData.bulletAttackSpeed += 1;
-                        SetStatFieldSprite(projectileData.bulletAttackSpeed);
+                    if (gameData.bulletAttackSpeed < 10) {
+                        gameData.SpendPoint();
+                        gameData.bulletAttackSpeed += 1;
+                        SetStatFieldSprite(gameData.bulletAttackSpeed);
                     }
                     break;
                 case "bombDamageScale" : 
-                    if (projectileData.bombDamageScale < 10) {
-                        projectileData.SpendPoint();
-                        projectileData.bombDamageScale += 1;
-                        SetStatFieldSprite(projectileData.bombDamageScale);
+                    if (gameData.bombDamageScale < 10) {
+                        gameData.SpendPoint();
+                        gameData.bombDamageScale += 1;
+                        SetStatFieldSprite(gameData.bombDamageScale);
                     }
                     break;
                 case "bombFireRate" : 
-                    if (projectileData.bombSpeed < 10) {
-                        projectileData.SpendPoint();
-                        projectileData.bombSpeed += 1;
-                        SetStatFieldSprite(projectileData.bombSpeed);
+                    if (gameData.bombSpeed < 10) {
+                        gameData.SpendPoint();
+                        gameData.bombSpeed += 1;
+                        SetStatFieldSprite(gameData.bombSpeed);
                     }
                     break;
                 case "bombAttackSpeed" : 
-                    if (projectileData.bombAttackSpeed < 10) {
-                        projectileData.SpendPoint();
-                        projectileData.bombAttackSpeed += 1;
-                        SetStatFieldSprite(projectileData.bombAttackSpeed);
+                    if (gameData.bombAttackSpeed < 10) {
+                        gameData.SpendPoint();
+                        gameData.bombAttackSpeed += 1;
+                        SetStatFieldSprite(gameData.bombAttackSpeed);
                     }
                     break;
                 case "lightningDamageScale" : 
-                    if (projectileData.lightballDamageScale < 10) {
-                        projectileData.SpendPoint();
-                        projectileData.lightballDamageScale += 1;
-                        SetStatFieldSprite(projectileData.lightballDamageScale);
+                    if (gameData.lightballDamageScale < 10) {
+                        gameData.SpendPoint();
+                        gameData.lightballDamageScale += 1;
+                        SetStatFieldSprite(gameData.lightballDamageScale);
                     }
                     break;
                 case "lightningFireRate" : 
-                    if (projectileData.lightbalSpeed < 10) {
-                        projectileData.SpendPoint();
-                        projectileData.lightbalSpeed += 1;
-                        SetStatFieldSprite(projectileData.lightbalSpeed);
+                    if (gameData.lightbalSpeed < 10) {
+                        gameData.SpendPoint();
+                        gameData.lightbalSpeed += 1;
+                        SetStatFieldSprite(gameData.lightbalSpeed);
                     }
                     break;
                 case "lightningAttackSpeed" : 
-                    if (projectileData.lightballAttackSpeed < 10) {
-                        projectileData.SpendPoint();
-                        projectileData.lightballAttackSpeed += 1;
-                        SetStatFieldSprite(projectileData.lightballAttackSpeed);
+                    if (gameData.lightballAttackSpeed < 10) {
+                        gameData.SpendPoint();
+                        gameData.lightballAttackSpeed += 1;
+                        SetStatFieldSprite(gameData.lightballAttackSpeed);
                     }
                     break;
             }

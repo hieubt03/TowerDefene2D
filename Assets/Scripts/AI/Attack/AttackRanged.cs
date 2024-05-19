@@ -14,12 +14,18 @@ public class AttackRanged : MonoBehaviour, IAttack
     private float cooldownCounter;
     private Transform currentTarget;
     public ProjectilePool projectilePool;
+    public string towerName;
 
     void Awake() {
-        if (DataPersistenceManager.instance.projectileData != null) {
-            reloadSpeed = Time.deltaTime * (10 + DataPersistenceManager.instance.projectileData.arrowAttackSpeed) / 10;
-        } else {
-            reloadSpeed = Time.deltaTime;
+        if (DataPersistenceManager.instance.gameData != null) {
+            switch (towerName) {
+                case "Archer" :
+                    reloadSpeed = reloadSpeed * (10 + DataPersistenceManager.instance.gameData.arrowAttackSpeed) / 10;
+                    break;
+                case "Sniper" :
+                    reloadSpeed = reloadSpeed * (10 + DataPersistenceManager.instance.gameData.bulletAttackSpeed) / 10;
+                    break;
+            }
         }
         anim = GetComponent<Animator>();
         cooldownCounter = cooldown;

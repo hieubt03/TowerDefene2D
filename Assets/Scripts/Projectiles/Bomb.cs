@@ -14,8 +14,8 @@ public class Bomb : MonoBehaviour
     private bool isInitiate = true;
 
     public void SetDamage(int damage) {
-        if (DataPersistenceManager.instance.projectileData != null) {
-            this.damage = damage * (10 + DataPersistenceManager.instance.projectileData.bombDamageScale) / 10;
+        if (DataPersistenceManager.instance.gameData != null) {
+            this.damage = damage * (10 + DataPersistenceManager.instance.gameData.bombDamageScale) / 10;
         } else {
             this.damage = damage;
         }

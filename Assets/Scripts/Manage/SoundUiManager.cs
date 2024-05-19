@@ -14,11 +14,11 @@ public class SoundUiManager : MonoBehaviour
     public Slider musicSlider, sfxSlider;
 
     void OnEnable() {
-        if (DataPersistenceManager.instance.projectileData != null) {
-            musicSlider.value = DataPersistenceManager.instance.projectileData.sound;
-            sfxSlider.value = DataPersistenceManager.instance.projectileData.sfx;
-            isMusicOn = DataPersistenceManager.instance.projectileData.isMusicOn;
-            isSfxOn = DataPersistenceManager.instance.projectileData.isSfxOn;
+        if (DataPersistenceManager.instance.gameData != null) {
+            musicSlider.value = DataPersistenceManager.instance.gameData.sound;
+            sfxSlider.value = DataPersistenceManager.instance.gameData.sfx;
+            isMusicOn = DataPersistenceManager.instance.gameData.isMusicOn;
+            isSfxOn = DataPersistenceManager.instance.gameData.isSfxOn;
             if (isMusicOn) {
                 musicIcon.sprite = sprites[0];
             } else {
@@ -32,11 +32,11 @@ public class SoundUiManager : MonoBehaviour
         }   
     }
     void OnDisable () {
-        if (DataPersistenceManager.instance.projectileData != null) {
-            DataPersistenceManager.instance.projectileData.sound = musicSlider.value;
-            DataPersistenceManager.instance.projectileData.sfx = sfxSlider.value;
-            DataPersistenceManager.instance.projectileData.isMusicOn = isMusicOn;
-            DataPersistenceManager.instance.projectileData.isSfxOn = isSfxOn;
+        if (DataPersistenceManager.instance.gameData != null) {
+            DataPersistenceManager.instance.gameData.sound = musicSlider.value;
+            DataPersistenceManager.instance.gameData.sfx = sfxSlider.value;
+            DataPersistenceManager.instance.gameData.isMusicOn = isMusicOn;
+            DataPersistenceManager.instance.gameData.isSfxOn = isSfxOn;
         }
     }
 

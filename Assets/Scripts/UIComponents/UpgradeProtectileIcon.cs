@@ -16,7 +16,7 @@ public class UpgradeProtectileIcon : MonoBehaviour
         }
     }
     public void OnprojectIconClick() {
-        DataPersistenceManager.instance.projectileData.curentSelectedProtectile = projectileName;
+        DataPersistenceManager.instance.gameData.curentSelectedProtectile = projectileName;
         setSprite(true);
         EventManager.TriggerEvent("ProtectileSelected", null, null);
     }

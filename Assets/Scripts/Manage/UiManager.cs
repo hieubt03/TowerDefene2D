@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using TMPro;
+using Unity.VisualScripting;
 
 public class UiManager : MonoBehaviour
 {
@@ -123,19 +124,24 @@ public class UiManager : MonoBehaviour
         PauseGame(true);
         int currentHealthPoint = GetHealthPoint();
         star.SetSprite(currentHealthPoint);
-        star.SetStar(currentHealthPoint);
-        switch (currentHealthPoint) {
-            case int n when n > 10 && n <= 15:
-                DataPersistenceManager.instance.projectileData.totalPoint += 6;
-                break;
-            case int n when n > 5 && n <= 10:
-                DataPersistenceManager.instance.projectileData.totalPoint += 4;   
-                break;
-            case int n when n > 0 && n <= 5:
-                DataPersistenceManager.instance.projectileData.totalPoint += 2;
-                break;
-        }
-        EventManager.TriggerEvent("TriggerSaveGame", null, null);
+        if (DataPersistenceManager.instance.levelData.levelStar < currentHealthPoint) {
+            star.SetStar(currentHealthPoint);
+            int gap = currentHealthPoint / 5 - DataPersistenceManager.instance.levelData.levelStar / 5;
+            switch (gap) {
+                case 3:
+                    DataPersistenceManager.instance.gameData.totalPoint += 6;
+                    break;
+                case 2:
+                    DataPersistenceManager.instance.gameData.totalPoint += 4;
+                    break;
+                case 1:
+                    DataPersistenceManager.instance.gameData.totalPoint += 2;   
+                    break;
+                case 0:
+                    break;
+                }
+            EventManager.TriggerEvent("TriggerSaveGame", null, null);
+        }   
         victoryMenu.SetActive(true);
     }
 

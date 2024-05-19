@@ -22,8 +22,8 @@ public class Bullet : MonoBehaviour, IProjectile
     private SpriteRenderer sprite;
 
     public void SetDamage(int damage) {
-        if (DataPersistenceManager.instance.projectileData != null) {
-            this.damage = damage * (10 + DataPersistenceManager.instance.projectileData.bulletDamageScale) / 10;
+        if (DataPersistenceManager.instance.gameData != null) {
+            this.damage = damage * (10 + DataPersistenceManager.instance.gameData.bulletDamageScale) / 10;
         } else {
             this.damage = damage;
         }
@@ -53,8 +53,8 @@ public class Bullet : MonoBehaviour, IProjectile
         sprite.enabled = true;
         if (distanceToAim.magnitude <= hitDistance) {
             counter = 0f;
-            if (DataPersistenceManager.instance.projectileData != null) {
-                speed = defaultSpeed * (10 + DataPersistenceManager.instance.projectileData.bulletSpeed) / 10;
+            if (DataPersistenceManager.instance.gameData != null) {
+                speed = defaultSpeed * (10 + DataPersistenceManager.instance.gameData.bulletSpeed) / 10;
             } else {
                 speed = defaultSpeed;
             }

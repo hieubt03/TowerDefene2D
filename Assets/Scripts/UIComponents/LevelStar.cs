@@ -9,14 +9,15 @@ public class LevelStar : MonoBehaviour, IDataPersistence
     public Image image;
     public List<Sprite> sprites;
     public void SetSprite(int healthPoint) {
-        switch (healthPoint) {
-            case int n when n > 10 && n <= 15:
+        int star = healthPoint / 5;
+        switch (star) {
+            case 3:
                 image.sprite = sprites[0];
                 break;
-            case int n when n > 5 && n <= 10:
+            case 2:
                 image.sprite = sprites[1];
                 break;
-            case int n when n > 0 && n <= 5:
+            case 1:
                 image.sprite = sprites[2];
                 break;
         }
@@ -24,10 +25,10 @@ public class LevelStar : MonoBehaviour, IDataPersistence
     public void SetStar(int star) {
         this.star = star;
     }
-    public void LoadData(GameData data) {
+    public void LoadData(LevelData data) {
         star = data.levelStar;
     }
-    public void SaveData(GameData data) {
+    public void SaveData(LevelData data) {
         data.levelStar = star;
     }
 }

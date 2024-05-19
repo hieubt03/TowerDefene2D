@@ -19,8 +19,8 @@ public class LightningBall : MonoBehaviour, IProjectile
     public float ballisticOffset = 0.5f;
 
     public void SetDamage(int damage) {
-        if (DataPersistenceManager.instance.projectileData != null) {
-            this.damage = damage * (10 + DataPersistenceManager.instance.projectileData.lightballDamageScale) / 10;
+        if (DataPersistenceManager.instance.gameData != null) {
+            this.damage = damage * (10 + DataPersistenceManager.instance.gameData.lightballDamageScale) / 10;
         } else {
             this.damage = damage;
         }
@@ -58,8 +58,8 @@ public class LightningBall : MonoBehaviour, IProjectile
                 }
             }
             counter = 0f;
-            if (DataPersistenceManager.instance.projectileData != null) {
-                speed = defaultSpeed * (10 + DataPersistenceManager.instance.projectileData.lightbalSpeed) / 10;
+            if (DataPersistenceManager.instance.gameData != null) {
+                speed = defaultSpeed * (10 + DataPersistenceManager.instance.gameData.lightbalSpeed) / 10;
             } else {
                 speed = defaultSpeed;
             }

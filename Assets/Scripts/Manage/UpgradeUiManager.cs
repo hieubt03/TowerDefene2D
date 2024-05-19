@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +12,7 @@ public class UpgradeUiManager : MonoBehaviour
     public List<StatField> statFields;
     public List<UpgradeProtectileIcon> upgradeProtectileIcons;
     void Awake() {
-        SetTotalPoint(DataPersistenceManager.instance.projectileData.totalPoint);
+        SetTotalPoint(DataPersistenceManager.instance.gameData.totalPoint);
     }
     void OnEnable() {
         EventManager.StartListening("ProtectileSelected", ProjectileSelected);
@@ -22,7 +23,7 @@ public class UpgradeUiManager : MonoBehaviour
         EventManager.StopListening("SpendTotalPoint", SpendTotalPoint);
     }
     void Start() {
-        string selectedProtectile = DataPersistenceManager.instance.projectileData.curentSelectedProtectile;
+        string selectedProtectile = DataPersistenceManager.instance.gameData.curentSelectedProtectile;
         if (selectedProtectile == "") {
             selectedProtectile = "Arrow";
         }
@@ -36,8 +37,8 @@ public class UpgradeUiManager : MonoBehaviour
         } 
     }
     public void ProjectileSelected(GameObject gameObj, string param) {
-        ProjectileData projectileData = DataPersistenceManager.instance.projectileData;
-        string selectedProtectile = projectileData.curentSelectedProtectile;
+        GameData gameData = DataPersistenceManager.instance.gameData;
+        string selectedProtectile = gameData.curentSelectedProtectile;
         foreach(UpgradeProtectileIcon upgradeProtectileIcon in upgradeProtectileIcons) {
             if (upgradeProtectileIcon.projectileName != selectedProtectile) {
                 upgradeProtectileIcon.setSprite(false);
@@ -47,43 +48,43 @@ public class UpgradeUiManager : MonoBehaviour
     }
     
     private void statFieldMenu(string selectedProtectile) {
-        ProjectileData projectileData = DataPersistenceManager.instance.projectileData;
+        GameData gameData = DataPersistenceManager.instance.gameData;
         switch (selectedProtectile) {
             case "Arrow":
                 statFields[0].statFieldName = "arrowDamageScale";
-                statFields[0].SetStatFieldSprite(projectileData.arrowDamageScale);
+                statFields[0].SetStatFieldSprite(gameData.arrowDamageScale);
                 statFields[1].statFieldName = "arrowFireRate";
-                statFields[1].SetStatFieldSprite(projectileData.arrowSpeed);
+                statFields[1].SetStatFieldSprite(gameData.arrowSpeed);
                 statFields[2].statFieldName = "arrowAttackSpeed";
-                statFields[2].SetStatFieldSprite(projectileData.arrowAttackSpeed);
+                statFields[2].SetStatFieldSprite(gameData.arrowAttackSpeed);
                 break;
             case "Bullet":
                 statFields[0].statFieldName = "bulletDamageScale";
-                statFields[0].SetStatFieldSprite(projectileData.bulletDamageScale);
+                statFields[0].SetStatFieldSprite(gameData.bulletDamageScale);
                 statFields[1].statFieldName = "bulletFireRate";
-                statFields[1].SetStatFieldSprite(projectileData.bulletSpeed);
+                statFields[1].SetStatFieldSprite(gameData.bulletSpeed);
                 statFields[2].statFieldName = "bulletAttackSpeed";
-                statFields[2].SetStatFieldSprite(projectileData.bulletAttackSpeed);
+                statFields[2].SetStatFieldSprite(gameData.bulletAttackSpeed);
                 break;
             case "Bomb":
                 statFields[0].statFieldName = "bombDamageScale";
-                statFields[0].SetStatFieldSprite(projectileData.bombDamageScale);
+                statFields[0].SetStatFieldSprite(gameData.bombDamageScale);
                 statFields[1].statFieldName = "bombFireRate";
-                statFields[1].SetStatFieldSprite(projectileData.bombSpeed);
+                statFields[1].SetStatFieldSprite(gameData.bombSpeed);
                 statFields[2].statFieldName = "bombAttackSpeed";
-                statFields[2].SetStatFieldSprite(projectileData.bombAttackSpeed);
+                statFields[2].SetStatFieldSprite(gameData.bombAttackSpeed);
                 break;
             case "Lightning":
                 statFields[0].statFieldName = "lightningDamageScale";
-                statFields[0].SetStatFieldSprite(projectileData.lightballDamageScale);
+                statFields[0].SetStatFieldSprite(gameData.lightballDamageScale);
                 statFields[1].statFieldName = "lightningFireRate";
-                statFields[1].SetStatFieldSprite(projectileData.lightbalSpeed);
+                statFields[1].SetStatFieldSprite(gameData.lightbalSpeed);
                 statFields[2].statFieldName = "lightningAttackSpeed";
-                statFields[2].SetStatFieldSprite(projectileData.lightballAttackSpeed);
+                statFields[2].SetStatFieldSprite(gameData.lightballAttackSpeed);
                 break;
         }
     }
-    // OnprojectIconClick
+
     private int GetTotalPoint() {
         int point;
         int.TryParse(totalPoint.text, out point);
@@ -91,7 +92,7 @@ public class UpgradeUiManager : MonoBehaviour
     }
 
     private void SetTotalPoint(int point) {
-        DataPersistenceManager.instance.projectileData.totalPoint = point;
+        DataPersistenceManager.instance.gameData.totalPoint = point;
         totalPoint.text = point.ToString();
     }
 
@@ -103,32 +104,32 @@ public class UpgradeUiManager : MonoBehaviour
     }
     public void resetPointUsed() {
         int tempPoint = GetTotalPoint();
-        ProjectileData projectileData = DataPersistenceManager.instance.projectileData;
-        tempPoint = tempPoint + projectileData.arrowSpeed
-                              + projectileData.arrowAttackSpeed
-                              + projectileData.arrowDamageScale
-                              + projectileData.bulletAttackSpeed
-                              + projectileData.bulletSpeed
-                              + projectileData.bulletDamageScale
-                              + projectileData.bombAttackSpeed
-                              + projectileData.bombSpeed
-                              + projectileData.bombDamageScale
-                              + projectileData.lightballAttackSpeed
-                              + projectileData.lightbalSpeed
-                              + projectileData.lightballDamageScale;
+        GameData gameData = DataPersistenceManager.instance.gameData;
+        tempPoint = tempPoint + gameData.arrowSpeed
+                              + gameData.arrowAttackSpeed
+                              + gameData.arrowDamageScale
+                              + gameData.bulletAttackSpeed
+                              + gameData.bulletSpeed
+                              + gameData.bulletDamageScale
+                              + gameData.bombAttackSpeed
+                              + gameData.bombSpeed
+                              + gameData.bombDamageScale
+                              + gameData.lightballAttackSpeed
+                              + gameData.lightbalSpeed
+                              + gameData.lightballDamageScale;
         SetTotalPoint(tempPoint);
-        projectileData.arrowAttackSpeed = 0;
-        projectileData.arrowSpeed = 0;
-        projectileData.arrowDamageScale = 0;
-        projectileData.bulletAttackSpeed = 0;
-        projectileData.bulletSpeed = 0;
-        projectileData.bulletDamageScale = 0;
-        projectileData.bombAttackSpeed = 0;
-        projectileData.bombSpeed = 0;
-        projectileData.bombDamageScale = 0;
-        projectileData.lightballAttackSpeed = 0;
-        projectileData.lightbalSpeed = 0;
-        projectileData.lightballDamageScale = 0;
-        statFieldMenu(projectileData.curentSelectedProtectile);
+        gameData.arrowAttackSpeed = 0;
+        gameData.arrowSpeed = 0;
+        gameData.arrowDamageScale = 0;
+        gameData.bulletAttackSpeed = 0;
+        gameData.bulletSpeed = 0;
+        gameData.bulletDamageScale = 0;
+        gameData.bombAttackSpeed = 0;
+        gameData.bombSpeed = 0;
+        gameData.bombDamageScale = 0;
+        gameData.lightballAttackSpeed = 0;
+        gameData.lightbalSpeed = 0;
+        gameData.lightballDamageScale = 0;
+        statFieldMenu(gameData.curentSelectedProtectile);
     }
 }

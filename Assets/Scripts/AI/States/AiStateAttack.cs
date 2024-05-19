@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class AiStateAttack : MonoBehaviour, IAiState
 {
-    public bool targetPriority;
+    public bool targetPriority = true;
     public string passiveState;
     private AiBehavior aiBehavior;
     private GameObject target;
@@ -29,11 +29,11 @@ public class AiStateAttack : MonoBehaviour, IAiState
     }
 
     public void OnStateExit(string previousState, string newState) {
-
+        LoseTarget();
     }
 
     void FixedUpdate() {
-        if ((target == null) && (targetsList.Count >0)) {
+        if ((target == null) && (targetsList.Count > 0)) {
             target = GetPriorityTarget();
         }
         if (target == null) {
@@ -67,6 +67,7 @@ public class AiStateAttack : MonoBehaviour, IAiState
         targetsList.Clear();
         return res;
     }
+    
     private void LoseTarget() {
         target = null;
         targetLess = false;
@@ -84,10 +85,10 @@ public class AiStateAttack : MonoBehaviour, IAiState
                 if (rangedAttack != null) {
                     rangedAttack.Attack(other.transform);
                 }
-                if (lightningAttack != null) {
+                else if (lightningAttack != null) {
                     lightningAttack.Attack(other.transform);
                 }
-                if (bombAttack != null) {
+                else if (bombAttack != null) {
                     bombAttack.Attack(other.transform);
                 }
             }

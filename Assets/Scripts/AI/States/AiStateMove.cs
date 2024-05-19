@@ -50,19 +50,6 @@ public class AiStateMove : MonoBehaviour, IAiState
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             if (anim != null) {
                 anim.SetFloat("angle", angle);
-                /*
-                switch (angle) {
-                case float n when n > 60:
-                    anim.SetTrigger("BackView");
-                    break;
-                case float n when n < -60:
-                    anim.SetTrigger("FrontView");
-                    break;
-                default:
-                    anim.SetTrigger("SideView");
-                    break;
-                }
-                */
         }
 
     }

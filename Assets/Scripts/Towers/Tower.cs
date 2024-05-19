@@ -56,7 +56,6 @@ public class Tower : MonoBehaviour
     public void BuildTower(GameObject towerPrefab) {
         CloseBuildingTree();
         Price price = towerPrefab.GetComponent<Price>();
-        // If anough gold
         if (uiManager.SpendGold(price.price) == true) {
             GameObject newTower = Instantiate<GameObject>(towerPrefab, transform.parent);
             newTower.transform.position = transform.position;

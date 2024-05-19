@@ -23,8 +23,8 @@ public class Arrow : MonoBehaviour, IProjectile
     public bool freezeRotation = false;
 
     public void SetDamage(int damage) {
-        if (DataPersistenceManager.instance.projectileData != null) {
-            this.damage = damage * (10 + DataPersistenceManager.instance.projectileData.arrowDamageScale) / 10;
+        if (DataPersistenceManager.instance.gameData != null) {
+            this.damage = damage * (10 + DataPersistenceManager.instance.gameData.arrowDamageScale) / 10;
         } else {
             this.damage = damage;
         }
@@ -63,8 +63,8 @@ public class Arrow : MonoBehaviour, IProjectile
                 }
             }
             counter = 0f;
-            if (DataPersistenceManager.instance.projectileData != null) {
-                speed = defaultSpeed * (10 + DataPersistenceManager.instance.projectileData.arrowSpeed) / 10;
+            if (DataPersistenceManager.instance.gameData != null) {
+                speed = defaultSpeed * (10 + DataPersistenceManager.instance.gameData.arrowSpeed) / 10;
             } else {
                 speed = defaultSpeed;
             }

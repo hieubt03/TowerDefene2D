@@ -13,8 +13,8 @@ public class AttackLightning : MonoBehaviour, IAttack
     public float reloadSpeed;
     public ProjectilePool projectilePool;
     void Awake() {
-        if (DataPersistenceManager.instance.projectileData != null) {
-            reloadSpeed = reloadSpeed * (10 + DataPersistenceManager.instance.projectileData.lightballAttackSpeed) / 10;
+        if (DataPersistenceManager.instance.gameData != null) {
+            reloadSpeed = reloadSpeed * (10 + DataPersistenceManager.instance.gameData.lightballAttackSpeed) / 10;
         }
         cooldownCounter = cooldown;
         Debug.Assert(projectilePrefab && firePoint, "Wrong initial Parameter");

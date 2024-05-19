@@ -14,17 +14,14 @@ public class LevelSelectsMenu : MonoBehaviour
         ActiveMenu();
     }
     public void ActiveMenu() {
-        Dictionary<string, GameData> levelSelectsGameData = DataPersistenceManager.instance.GetAllLevelsGameData();
+        Dictionary<string, LevelData> levelSelectsGameData = DataPersistenceManager.instance.GetAllLevelsGameData();
         foreach (LevelSelect levelSelect in levelSelects) {
-            GameData levelData = null;
+            LevelData levelData = null;
             levelSelectsGameData.TryGetValue(levelSelect.GetLevelSelectId(), out levelData);
             levelSelect.SetLevelSelectSprite(levelData);
         }
     }
-    // public void OnLevelSelectClicked(LevelSelect levelSelect) {
-    //     DataPersistenceManager.instance.ChangeSelectedProfileId(levelSelect.GetLevelSelectId());
 
-    // }
     public void GotoUpgradeMenu() {
         upgradeUi.SetActive(true);
     }

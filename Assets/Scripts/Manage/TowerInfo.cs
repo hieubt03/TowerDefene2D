@@ -14,7 +14,20 @@ public class TowerInfo : MonoBehaviour
     public TextMeshProUGUI level;
     public TextMeshProUGUI info;
     private void Awake() {
-        UpdateTowerInfo(dotIndex);
+        string selectedProtectile = DataPersistenceManager.instance.gameData.curentSelectedProtectile;
+        if (selectedProtectile == "") {
+            DataPersistenceManager.instance.gameData.curentSelectedProtectile = "Arrow";
+            selectedProtectile = DataPersistenceManager.instance.gameData.curentSelectedProtectile;
+            UpdateTowerInfo(dotIndex);
+        }
+        foreach(UpgradeProtectileIcon upgradeProtectileIcon in upgradeProtectileIcons) {
+            if (upgradeProtectileIcon.projectileName != selectedProtectile) {
+                upgradeProtectileIcon.setSprite(false);
+            } else {
+                upgradeProtectileIcon.setSprite(true);
+            }
+        } 
+
     }
     void OnEnable() {
         EventManager.StartListening("NextButtonClicked", NextButtonClicked);
@@ -28,17 +41,6 @@ public class TowerInfo : MonoBehaviour
         EventManager.StopListening("ProtectileSelected", ProjectileSelected);
     }
     void Start() {
-        string selectedProtectile = DataPersistenceManager.instance.projectileData.curentSelectedProtectile;
-        if (selectedProtectile == "") {
-            selectedProtectile = "Arrow";
-        }
-        foreach(UpgradeProtectileIcon upgradeProtectileIcon in upgradeProtectileIcons) {
-            if (upgradeProtectileIcon.projectileName != selectedProtectile) {
-                upgradeProtectileIcon.setSprite(false);
-            } else {
-                upgradeProtectileIcon.setSprite(true);
-            }
-        } 
         dotIndex = 0;
         UpdateTowerInfo(dotIndex);
     }
@@ -51,8 +53,8 @@ public class TowerInfo : MonoBehaviour
         UpdateTowerInfo(dotIndex);
     }
     public void ProjectileSelected(GameObject gameObj, string param) {
-        ProjectileData projectileData = DataPersistenceManager.instance.projectileData;
-        string selectedProtectile = projectileData.curentSelectedProtectile;
+        GameData gameData = DataPersistenceManager.instance.gameData;
+        string selectedProtectile = gameData.curentSelectedProtectile;
         foreach(UpgradeProtectileIcon upgradeProtectileIcon in upgradeProtectileIcons) {
             if (upgradeProtectileIcon.projectileName != selectedProtectile) {
                 upgradeProtectileIcon.setSprite(false);
@@ -72,27 +74,27 @@ public class TowerInfo : MonoBehaviour
         }
         switch (dotIndex) {
             case 0:
-                switch (DataPersistenceManager.instance.projectileData.curentSelectedProtectile) {
+                switch (DataPersistenceManager.instance.gameData.curentSelectedProtectile) {
                     case "Arrow" :
-                        info.text = "Arrow lv 1";
+                        info.text = "This tower is equiped with a precise archer who fires sharp arrows at invaliding zombies. It is effective against flying zombie or not protected zombie";
                         towerImage.sprite = towerImageList[0];
                         break;  
                     case "Bomb" :
-                        info.text = "Bomb lv 1";
+                        info.text = "This tower launches a bomb that creates a significant impact within the explosion radius. This tower is only effective against ground zombies";
                         towerImage.sprite = towerImageList[5];
                         break;
                     case "Lightning" :
-                        info.text = "Lightning lv 1";
+                        info.text = "This tower launches a lightning ball continuously. This tower is only effective against ground zombies";
                         towerImage.sprite = towerImageList[10];
                         break;
                     case "Bullet" :
-                        info.text = "Bullet lv 1";
+                        info.text = "This tower features a soldier who uses a sniper rifle to take down target from a great distance. It has the longest range but the slowest rate of fire. It is effective against flying zombie or not protected zombie";
                         towerImage.sprite = towerImageList[15];
                         break;
                 }
                 break;
             case 1:
-                switch (DataPersistenceManager.instance.projectileData.curentSelectedProtectile) {
+                switch (DataPersistenceManager.instance.gameData.curentSelectedProtectile) {
                     case "Arrow" :
                         info.text = "Arrow lv 2";
                         towerImage.sprite = towerImageList[1];
@@ -112,7 +114,7 @@ public class TowerInfo : MonoBehaviour
                 }
                 break;
             case 2:
-                switch (DataPersistenceManager.instance.projectileData.curentSelectedProtectile) {
+                switch (DataPersistenceManager.instance.gameData.curentSelectedProtectile) {
                     case "Arrow" :
                         info.text = "Arrow lv 3";
                         towerImage.sprite = towerImageList[2];
@@ -132,7 +134,7 @@ public class TowerInfo : MonoBehaviour
                 }
                 break;
             case 3:
-                switch (DataPersistenceManager.instance.projectileData.curentSelectedProtectile) {
+                switch (DataPersistenceManager.instance.gameData.curentSelectedProtectile) {
                     case "Arrow" :
                         info.text = "Arrow lv 4";
                         towerImage.sprite = towerImageList[3];
@@ -152,7 +154,7 @@ public class TowerInfo : MonoBehaviour
                 }
                 break;
             case 4:
-                switch (DataPersistenceManager.instance.projectileData.curentSelectedProtectile) {
+                switch (DataPersistenceManager.instance.gameData.curentSelectedProtectile) {
                     case "Arrow" :
                         info.text = "Arrow lv 5";
                         towerImage.sprite = towerImageList[4];

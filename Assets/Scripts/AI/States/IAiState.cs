@@ -10,5 +10,4 @@ public interface IAiState
    void TriggerStay (Collider2D my, Collider2D other);
    void TriggerExit (Collider2D my, Collider2D other);
     
-   
 }

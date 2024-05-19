@@ -19,8 +19,8 @@ public class AudioManager : MonoBehaviour
     }
 
     private void Start() {
-        if (DataPersistenceManager.instance.projectileData != null) {
-            if (DataPersistenceManager.instance.projectileData.isMusicOn) {
+        if (DataPersistenceManager.instance.gameData != null) {
+            if (DataPersistenceManager.instance.gameData.isMusicOn) {
                 musicSources.mute = false;
                 PlayMusic("BackgroundMusic");
             } else {
@@ -52,28 +52,28 @@ public class AudioManager : MonoBehaviour
 
     public void ToggleMusic() {
         musicSources.mute = !musicSources.mute;
-        if (DataPersistenceManager.instance.projectileData != null) {
-            DataPersistenceManager.instance.projectileData.isMusicOn = !DataPersistenceManager.instance.projectileData.isMusicOn;
+        if (DataPersistenceManager.instance.gameData != null) {
+            DataPersistenceManager.instance.gameData.isMusicOn = !DataPersistenceManager.instance.gameData.isMusicOn;
         }
     }
 
     public void ToggleSfx() {
         sfxSources.mute = !sfxSources.mute;
-        if (DataPersistenceManager.instance.projectileData != null) {
-            DataPersistenceManager.instance.projectileData.isSfxOn = !DataPersistenceManager.instance.projectileData.isSfxOn;
+        if (DataPersistenceManager.instance.gameData != null) {
+            DataPersistenceManager.instance.gameData.isSfxOn = !DataPersistenceManager.instance.gameData.isSfxOn;
         }
     }
 
     public void MusicVolume(float volume) {
-        if (DataPersistenceManager.instance.projectileData != null) {
-            DataPersistenceManager.instance.projectileData.sound = volume;
+        if (DataPersistenceManager.instance.gameData != null) {
+            DataPersistenceManager.instance.gameData.sound = volume;
         }
         musicSources.volume = volume;
     }
 
     public void SfxVolume(float volume) {
-        if (DataPersistenceManager.instance.projectileData != null) {
-            DataPersistenceManager.instance.projectileData.sfx = volume;
+        if (DataPersistenceManager.instance.gameData != null) {
+            DataPersistenceManager.instance.gameData.sfx = volume;
         }
         sfxSources.volume = volume;
     }

@@ -80,6 +80,5 @@ public class LevelManager : MonoBehaviour
     }
     private void AllZombiesAreDead(GameObject gameObj, string param) {
         uiManager.GoToVictoryMenu();
-        //save game
     }    
 }
