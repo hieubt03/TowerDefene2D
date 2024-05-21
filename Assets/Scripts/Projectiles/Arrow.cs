@@ -21,6 +21,17 @@ public class Arrow : MonoBehaviour, IProjectile
     private SpriteRenderer sprite;
     public float ballisticOffset;
     public bool freezeRotation = false;
+    
+    void Awake() {
+        switch (gameObject.name) {
+            case "Arrow(Clone)" :
+                defaultSpeed = defaultSpeed * (10 + DataPersistenceManager.instance.gameData.arrowSpeed) / 10;
+                break;
+            case "Bomb(Clone)" :
+                defaultSpeed = defaultSpeed * (10 + DataPersistenceManager.instance.gameData.bombSpeed) / 10;
+                break;
+        }
+    }
 
     public void SetDamage(int damage) {
         if (DataPersistenceManager.instance.gameData != null) {
@@ -63,11 +74,7 @@ public class Arrow : MonoBehaviour, IProjectile
                 }
             }
             counter = 0f;
-            if (DataPersistenceManager.instance.gameData != null) {
-                speed = defaultSpeed * (10 + DataPersistenceManager.instance.gameData.arrowSpeed) / 10;
-            } else {
-                speed = defaultSpeed;
-            }
+            speed = defaultSpeed;
             gameObject.SetActive(false);
             transform.position = new Vector3(0,0,0);
         }

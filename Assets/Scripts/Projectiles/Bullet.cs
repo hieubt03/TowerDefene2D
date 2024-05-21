@@ -21,6 +21,12 @@ public class Bullet : MonoBehaviour, IProjectile
     private float counter;
     private SpriteRenderer sprite;
 
+    void Awake() {
+        if (DataPersistenceManager.instance.gameData != null) {
+            defaultSpeed = defaultSpeed * (10 + DataPersistenceManager.instance.gameData.bulletSpeed) / 10;
+        }
+    }
+
     public void SetDamage(int damage) {
         if (DataPersistenceManager.instance.gameData != null) {
             this.damage = damage * (10 + DataPersistenceManager.instance.gameData.bulletDamageScale) / 10;

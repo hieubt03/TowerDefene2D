@@ -9,7 +9,6 @@ using Unity.VisualScripting;
 
 public class UiManager : MonoBehaviour
 {
-    public string nextLevel;
     public GameObject pauseMenu;
     public GameObject defeatMenu;
     public GameObject victoryMenu;
@@ -74,16 +73,6 @@ public class UiManager : MonoBehaviour
         SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
     }
 
-    public void NewGame() {
-        GoToLevel();
-        PauseGame(false);
-    }
-
-    public void ResumeGame() {
-        GoToLevel();
-        PauseGame(false);
-    }
-
     public void GoToMainMenu() {
         LoadScene("SelectLevel");
     }
@@ -107,7 +96,7 @@ public class UiManager : MonoBehaviour
         pauseMenu.SetActive(true);
     }
 
-    private void GoToLevel() {
+    public void GoToLevel() {
         CloseAllUI();
         levelUI.SetActive(true);
         PauseGame(false);
@@ -129,13 +118,13 @@ public class UiManager : MonoBehaviour
             int gap = currentHealthPoint / 5 - DataPersistenceManager.instance.levelData.levelStar / 5;
             switch (gap) {
                 case 3:
-                    DataPersistenceManager.instance.gameData.totalPoint += 6;
+                    DataPersistenceManager.instance.gameData.totalPoint += 9;
                     break;
                 case 2:
-                    DataPersistenceManager.instance.gameData.totalPoint += 4;
+                    DataPersistenceManager.instance.gameData.totalPoint += 6;
                     break;
                 case 1:
-                    DataPersistenceManager.instance.gameData.totalPoint += 2;   
+                    DataPersistenceManager.instance.gameData.totalPoint += 3;   
                     break;
                 case 0:
                     break;
@@ -143,11 +132,6 @@ public class UiManager : MonoBehaviour
             EventManager.TriggerEvent("TriggerSaveGame", null, null);
         }   
         victoryMenu.SetActive(true);
-    }
-
-    public void GoToNextLevel(){
-        LoadScene(nextLevel);
-        CloseAllUI();
     }
 
     public void RestartLevel() {
@@ -178,6 +162,7 @@ public class UiManager : MonoBehaviour
         }
         return res;
     }
+
     private int GetHealthPoint() {
         int currentHealthPoint;
         int.TryParse(healthPoint.text, out currentHealthPoint);

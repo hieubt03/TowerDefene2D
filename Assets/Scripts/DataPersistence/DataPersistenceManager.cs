@@ -6,9 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class DataPersistenceManager : MonoBehaviour
 {
-    private bool initializeDataIfNull = true;
+    [SerializeField] private bool initializeDataIfNull = true;
+    [SerializeField] private bool useEncryption = true;
     public string fileName;
-    private bool useEncryption = false;
     public GameData gameData;
     public LevelData levelData;
     private List<IDataPersistence> dataPersistenceObjects;
@@ -67,7 +67,7 @@ public class DataPersistenceManager : MonoBehaviour
         }
         //Load game data
         gameData = fileDataHandler.LoadGameData();
-        if (gameData == null) {
+        if (gameData == null && initializeDataIfNull) {
             NewGameData();
         }
     }

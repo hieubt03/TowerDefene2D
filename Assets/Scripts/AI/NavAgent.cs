@@ -9,7 +9,6 @@ public class NavAgent : MonoBehaviour
     public bool move = true;
     public Vector2 destination;
     [HideInInspector]
-    public Vector2 velocity;
     public Vector2 prevPosition;
     
     void OnEnable() {
@@ -20,8 +19,6 @@ public class NavAgent : MonoBehaviour
         if (move == true) {
             transform.position = Vector2.MoveTowards(transform.position, destination, speed * Time.deltaTime);
         }
-        Vector2 velocity = (Vector2)transform.position - prevPosition;
-        velocity /= Time.deltaTime;
         prevPosition = transform.position;
     }
 }

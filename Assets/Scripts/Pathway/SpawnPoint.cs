@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class SpawnPoint : MonoBehaviour
 {
-    public float speedRandomizer = 0.2f;
     private Pathway pathway;
     private WaveManager waveManager;
 
@@ -21,7 +20,6 @@ public class SpawnPoint : MonoBehaviour
         newZombie.GetComponent<AiStateMove>().pathway = pathway;
         NavAgent navAgent = newZombie.GetComponent<NavAgent>();
         navAgent.move = true;
-        //navAgent.speed = Random.Range(navAgent.speed * (1f - speedRandomizer), navAgent.speed * (1f + speedRandomizer));
         waveManager.activeZombies.Add(newZombie);
     }
 }

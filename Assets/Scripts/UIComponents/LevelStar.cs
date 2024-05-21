@@ -20,6 +20,9 @@ public class LevelStar : MonoBehaviour, IDataPersistence
             case 1:
                 image.sprite = sprites[2];
                 break;
+            case 0:
+                image.sprite = sprites[3];
+                break;
         }
     }
     public void SetStar(int star) {

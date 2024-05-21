@@ -27,7 +27,6 @@ public class Bomb : MonoBehaviour
     void OnDisable() {
         EventManager.StopListening("SceneQuit", SceneQuit);
         if (isQuitting == false) {
-            AudioManager.instance.PlaySfx("Explosion");
             // Find all colliders in specified radius
             Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, radius);
             foreach (Collider2D col in cols) {
@@ -44,6 +43,7 @@ public class Bomb : MonoBehaviour
             }
             if (explosion != null && isInitiate == false) {
                 Destroy(Instantiate<GameObject>(explosion, transform.position, transform.rotation), explosionDuration);
+                AudioManager.instance.PlaySfx("Explosion");
             }
             isInitiate = false;
         }

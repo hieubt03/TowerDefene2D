@@ -25,7 +25,6 @@ public class AttackBomb : MonoBehaviour, IAttack
     }
 
     void Update() {
-        Debug.Log(cooldownCounter);
         if (cooldownCounter < cooldown) {
             cooldownCounter += reloadSpeed;
         }
@@ -41,7 +40,6 @@ public class AttackBomb : MonoBehaviour, IAttack
     }
     private void Fire() {
         if (currentTarget != null) {
-            Debug.Log("Still fire");
             GameObject projectile = projectilePool.getPoolObjects();
             projectile.SetActive(true);
             projectile.transform.position = firePoint.position;

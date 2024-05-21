@@ -43,6 +43,7 @@ public class Pathway : MonoBehaviour
         }
         return res;
     }
+
     public float GetPathDistance(WayPoint startWayPoint) {
         WayPoint[] wayPoints = GetComponentsInChildren<WayPoint>();
         bool reached = false;

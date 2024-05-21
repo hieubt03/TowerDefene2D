@@ -26,8 +26,14 @@ public class AudioManager : MonoBehaviour
             } else {
                 musicSources.mute = true;
             }
-        } 
-        PlayMusic("BackgroundMusic");
+            if (DataPersistenceManager.instance.gameData.isSfxOn) {
+                sfxSources.mute = false;
+            } else {
+                sfxSources.mute = true;
+            }
+        } else {
+            PlayMusic("BackgroundMusic");
+        }
     }
 
     public void PlayMusic(string name) {

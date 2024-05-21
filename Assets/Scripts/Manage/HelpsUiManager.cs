@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TowerInfo : MonoBehaviour
+public class HelpsUiManager : MonoBehaviour
 {       
     public List<UpgradeProtectileIcon> upgradeProtectileIcons;
     public List<GameObject> dots;
@@ -30,25 +30,21 @@ public class TowerInfo : MonoBehaviour
 
     }
     void OnEnable() {
-        EventManager.StartListening("NextButtonClicked", NextButtonClicked);
-        EventManager.StartListening("BackButtonClicked", BackButtonClicked);
         EventManager.StartListening("ProtectileSelected", ProjectileSelected);
         
     }
     void OnDisable() {
-        EventManager.StopListening("NextButtonClicked", NextButtonClicked);
-        EventManager.StopListening("BackButtonClicked", BackButtonClicked);
         EventManager.StopListening("ProtectileSelected", ProjectileSelected);
     }
     void Start() {
         dotIndex = 0;
         UpdateTowerInfo(dotIndex);
     }
-    private void NextButtonClicked(GameObject gameObj, string param) {
+    public void NextButtonClicked() {
         if (dotIndex < 4) dotIndex ++;
         UpdateTowerInfo(dotIndex);
     }
-    private void BackButtonClicked(GameObject gameObj, string param) {
+    public void BackButtonClicked() {
         if (dotIndex > 0) dotIndex --;
         UpdateTowerInfo(dotIndex);
     }
@@ -84,11 +80,11 @@ public class TowerInfo : MonoBehaviour
                         towerImage.sprite = towerImageList[5];
                         break;
                     case "Lightning" :
-                        info.text = "This tower launches a lightning ball continuously. This tower is only effective against ground zombies";
+                        info.text = "This tower launches a lightning ball continuously. This tower is only effective against ground zombies. This tower may initially be weak but the more you upgrade it, the stronger it becomes";
                         towerImage.sprite = towerImageList[10];
                         break;
                     case "Bullet" :
-                        info.text = "This tower features a soldier who uses a sniper rifle to take down target from a great distance. It has the longest range but the slowest rate of fire. It is effective against flying zombie or not protected zombie";
+                        info.text = "This tower features a soldier who uses a sniper rifle to fire a bullet that damages all enemies hit from a great distance. It has the longest range but the slowest rate of fire. It is effective against flying zombie or not protected zombie";
                         towerImage.sprite = towerImageList[15];
                         break;
                 }
@@ -96,19 +92,19 @@ public class TowerInfo : MonoBehaviour
             case 1:
                 switch (DataPersistenceManager.instance.gameData.curentSelectedProtectile) {
                     case "Arrow" :
-                        info.text = "Arrow lv 2";
+                        info.text = "The arrow inflict 25% more damage";
                         towerImage.sprite = towerImageList[1];
                         break;
                     case "Bomb" :
-                        info.text = "Bomb lv 2";
+                        info.text = "The bomb inflict 25% more damage";
                         towerImage.sprite = towerImageList[6];
                         break;
                     case "Lightning" :
-                        info.text = "Lightning lv 2";
+                        info.text = "The lightning balls inflict 12,5% more damage. The tower's fire rate increased";
                         towerImage.sprite = towerImageList[11];
                         break;
                     case "Bullet" :
-                        info.text = "Bullet lv 2";
+                        info.text = "The bullet inflict 25% more damage";
                         towerImage.sprite = towerImageList[16];
                         break;
                 }
@@ -116,19 +112,19 @@ public class TowerInfo : MonoBehaviour
             case 2:
                 switch (DataPersistenceManager.instance.gameData.curentSelectedProtectile) {
                     case "Arrow" :
-                        info.text = "Arrow lv 3";
+                        info.text = "The arrow inflict 50% more damage. The tower's attack range and fire rate increases by 25%";
                         towerImage.sprite = towerImageList[2];
                         break;
                     case "Bomb" :
-                        info.text = "Bomb lv 3";
+                        info.text = "The bomb inflict 50% more damage. The tower's attack range and fire rate increases by 25%";
                         towerImage.sprite = towerImageList[7];
                         break;
                     case "Lightning" :
-                        info.text = "Lightning lv 3";
+                        info.text = "The lightning ball inflict 25% more damage. The tower's attack range increases by 25%. More lightning balls are generated";
                         towerImage.sprite = towerImageList[12];
                         break;
                     case "Bullet" :
-                        info.text = "Bullet lv 3";
+                        info.text = "The bullet inflict 50% more damage. The tower's attack range and fire rate increases by 25%";
                         towerImage.sprite = towerImageList[17];
                         break;
                 }
@@ -136,19 +132,19 @@ public class TowerInfo : MonoBehaviour
             case 3:
                 switch (DataPersistenceManager.instance.gameData.curentSelectedProtectile) {
                     case "Arrow" :
-                        info.text = "Arrow lv 4";
+                        info.text = "The arrow inflict 75% more damage";
                         towerImage.sprite = towerImageList[3];
                         break;
                     case "Bomb" :
-                        info.text = "Bomb lv 4";
+                        info.text = "The bomb inflict 75% more damage";
                         towerImage.sprite = towerImageList[8];
                         break;
                     case "Lightning" :
-                        info.text = "Lightning lv 4";
+                        info.text = "The lightning ball inflict 37,5% more damage";
                         towerImage.sprite = towerImageList[13];
                         break;
                     case "Bullet" :
-                        info.text = "Bullet lv 4";
+                        info.text = "The bomb inflict 75% more damage";
                         towerImage.sprite = towerImageList[18];
                         break;
                 }
@@ -156,19 +152,19 @@ public class TowerInfo : MonoBehaviour
             case 4:
                 switch (DataPersistenceManager.instance.gameData.curentSelectedProtectile) {
                     case "Arrow" :
-                        info.text = "Arrow lv 5";
+                        info.text = "The arrow inflict 100% more damage. The tower's attack range increases by 50%. Now the tower can now fire continuously";
                         towerImage.sprite = towerImageList[4];
                         break;
                     case "Bomb" :
-                        info.text = "Bomb lv 5";
+                        info.text = "The bomb inflict 100% more damage. The tower's attack range increases by 50%. Now the tower cause significant damage in long distance";
                         towerImage.sprite = towerImageList[9];
                         break;
                     case "Lightning" :
-                        info.text = "Lightning lv 5";
+                        info.text = "The lightning ball inflict 50% more damage. The tower's attack range increases by 50%. Now the tower can generate mutiple lightning ball";
                         towerImage.sprite = towerImageList[14];
                         break;
                     case "Bullet" :
-                        info.text = "Bullet lv 5";
+                        info.text = "The bomb inflict 100% more damage. The tower's attack range increases by 50%. Now the tower deal massive damage in the area";
                         towerImage.sprite = towerImageList[19];
                         break;
                 }

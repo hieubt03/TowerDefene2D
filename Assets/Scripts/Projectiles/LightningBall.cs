@@ -18,6 +18,12 @@ public class LightningBall : MonoBehaviour, IProjectile
     private SpriteRenderer sprite;
     public float ballisticOffset = 0.5f;
 
+    void Awake() {
+        if (DataPersistenceManager.instance.gameData != null) {
+            defaultSpeed = defaultSpeed * (10 + DataPersistenceManager.instance.gameData.lightbalSpeed) / 10;
+        }
+    }
+
     public void SetDamage(int damage) {
         if (DataPersistenceManager.instance.gameData != null) {
             this.damage = damage * (10 + DataPersistenceManager.instance.gameData.lightballDamageScale) / 10;
@@ -25,6 +31,7 @@ public class LightningBall : MonoBehaviour, IProjectile
             this.damage = damage;
         }
     }
+
     public void Fire(Transform target) {
         AudioManager.instance.PlaySfx("Lightning");
         sprite = GetComponent<SpriteRenderer>();
@@ -58,11 +65,7 @@ public class LightningBall : MonoBehaviour, IProjectile
                 }
             }
             counter = 0f;
-            if (DataPersistenceManager.instance.gameData != null) {
-                speed = defaultSpeed * (10 + DataPersistenceManager.instance.gameData.lightbalSpeed) / 10;
-            } else {
-                speed = defaultSpeed;
-            }
+            speed = defaultSpeed;
             gameObject.SetActive(false);
             transform.position = new Vector3(0,0,0);
         }

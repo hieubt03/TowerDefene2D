@@ -23,9 +23,8 @@ public class WaveComplete : MonoBehaviour
         }
         isInitiate = false;
     }
-
-    private void SetActiveToFalse() {
-        gameObject.SetActive(false);
-    }
     
+    private void SetActiveToFalse() {
+         gameObject.SetActive(false);
+    }   
 }

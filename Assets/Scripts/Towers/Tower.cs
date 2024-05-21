@@ -39,6 +39,7 @@ public class Tower : MonoBehaviour
             Vector3 position = transform.position;
             if (position.x < -4.35) { position.x = -4.35F; };
             if (position.x > 4.35) { position.x = 4.35F; };
+            if (position.y > 1) { position.y = 1F; };
             position.y = position.y + 2;
             activeBuildingTree.transform.position = Camera.main.WorldToScreenPoint(position);
             activeBuildingTree.myTower = this;
@@ -63,6 +64,7 @@ public class Tower : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    
     public void SellTower(GameObject towerPrefab){
         Price price = towerPrefab.GetComponent<Price>();
         if (price != null) {

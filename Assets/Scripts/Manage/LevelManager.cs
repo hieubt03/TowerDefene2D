@@ -5,6 +5,7 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour
 {
     private UiManager uiManager;
+    private bool isNewGame = true;
     [SerializeField] private string levelSelectId;
     private int spawnNumbers;
 
@@ -77,6 +78,10 @@ public class LevelManager : MonoBehaviour
     private void WaveComplete(GameObject gameObj, string param) {
         int currentWave = uiManager.GetWaveNumber();
         uiManager.SetWave(currentWave += 1);
+        if (isNewGame == false) {
+            uiManager.AddGold(750);
+        };
+        isNewGame = false;
     }
     private void AllZombiesAreDead(GameObject gameObj, string param) {
         uiManager.GoToVictoryMenu();
