@@ -10,7 +10,6 @@ public class StatField : MonoBehaviour
     public Image image;
     public List<Sprite> sprites;
     public string statFieldName;
-    public int filedPoint;
     public void SetStatFieldSprite(int filedPoint) {
         switch (filedPoint) {
             case 0:

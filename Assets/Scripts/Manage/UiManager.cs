@@ -86,7 +86,6 @@ public class UiManager : MonoBehaviour
 
     private void PauseGame(bool pause) {
         paused = pause;
-        // Stop the time on pause
         Time.timeScale = pause ? 0f : 1f;
         EventManager.TriggerEvent("GamePaused", null, pause.ToString());
     }

@@ -31,9 +31,9 @@ public class AudioManager : MonoBehaviour
             } else {
                 sfxSources.mute = true;
             }
-        } else {
-            PlayMusic("BackgroundMusic");
-        }
+        } 
+        PlayMusic("BackgroundMusic");
+        
     }
 
     public void PlayMusic(string name) {

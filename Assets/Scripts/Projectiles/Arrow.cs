@@ -88,8 +88,7 @@ public class Arrow : MonoBehaviour, IProjectile
 
     private Vector2 AddBallisticOffset(float originDistance, float distanceToAim) {
         if (ballisticOffset > 0f) {
-            float offset = Mathf.Sin(Mathf.PI * ((originDistance - distanceToAim) / originDistance));
-            offset *= originDistance;
+            float offset = Mathf.Sqrt((originDistance-distanceToAim) * distanceToAim);
             return (Vector2)myVirtualPosition + (ballisticOffset * offset * Vector2.up);
         }
         else {

@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class DataPersistenceManager : MonoBehaviour
 {
     [SerializeField] private bool initializeDataIfNull = true;
-    [SerializeField] private bool useEncryption = true;
+    [SerializeField] private bool useEncryption = false;
     public string fileName;
     public GameData gameData;
     public LevelData levelData;
@@ -46,10 +46,12 @@ public class DataPersistenceManager : MonoBehaviour
     }
     public void NewLevelData() {
         levelData = new LevelData();
+
     }
 
     public void NewGameData() {
         gameData = new GameData();
+        gameData.totalPoint = 9999;
     }
 
     public void LoadGame() {

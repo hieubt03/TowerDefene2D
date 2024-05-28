@@ -162,13 +162,11 @@ public class FileDataHandler
         bool success = false;
         string backupFilePath = fullPath + backupExtension;
         try {
-            // if the file exists, attempt to roll back to it by overwriting the original file
             if (File.Exists(backupFilePath)) {
                 File.Copy(backupFilePath, fullPath, true);
                 success = true;
                 Debug.LogWarning("Had to roll back to backup file at: " + backupFilePath);
             }
-            // otherwise, we don't yet have a backup file - so there's nothing to roll back to
             else {
                 throw new Exception("Tried to roll back, but no backup file exists to roll back to.");
             }
